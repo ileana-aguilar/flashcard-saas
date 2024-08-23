@@ -8,6 +8,8 @@ import {
   Typography,
   Box,
 } from '@mui/material'
+import { WriteBatch } from 'firebase/firestore'
+import { useRouter } from 'next/router'
 
 export default function Generate() {
   const [text, setText] = useState('')
