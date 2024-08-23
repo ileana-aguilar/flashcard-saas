@@ -4,7 +4,7 @@ import { Container, Grid, Card, CardActionArea, CardContent, Typography } from '
 import { doc, collection, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { useUser } from '@clerk/nextjs';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { db } from '/firebase'; // Make sure db is correctly imported
+import { db } from '/firebase'; 
 
 export default function Flashcard() {
     const { isLoaded, isSignedIn, user } = useUser();
