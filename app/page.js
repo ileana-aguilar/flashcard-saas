@@ -35,19 +35,42 @@ export default function Home() {
     }
   }
   return (
-    <Container maxWidth="lg">
-      <Head>
-        <title>Flashcard SaaS</title>
+    <Container
+      maxWidth="lg"
+      sx={{
+        backgroundColor: '#f6f7fb',
+        '@media (min-width: 1200px)': {
+          maxWidth: '100%', 
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (min-width: 600px)': {
+          paddingLeft: '0px',
+          paddingRight: '0px',
+          backgroundColor: '#f6f7fb',
+        },
+        '.css-12waxkz' :{
+          textAlign: 'center',
+          marginTop: '32px',
+          marginBottom: '0px',
+          padding: '14px 0px',
+          backgroundColor: '#f6f7fb',
+      },
+      
+        
+      }}
+    >
+      <Head >
+        <title>Quizin</title>
         <meta name="description" content="The easiest way to create flashcards from your text." />
       </Head>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
-          <Typography variant="h6" style={{flexGrow: 1}}>
-            Flashcard SaaS
+          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
+            Quizin
           </Typography>
           <SignedOut>
-            <Button color="inherit" href="/sign-in">Login</Button>
-            <Button color="inherit" href="/sign-up">Sign Up</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
+            <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
             <UserButton />
@@ -55,19 +78,25 @@ export default function Home() {
         </Toolbar>
       </AppBar>
     <Box sx={{textAlign: 'center', my: 4}}>
-      
+      <Box display={'flex'} flexDirection={'row'}>
+      <Box>
   <Typography variant="h2" component="h1" gutterBottom>
-    Welcome to Flashcard SaaS
+    Master your studies with AI-enhanced learning
   </Typography>
   <Typography variant="h5" component="h2" gutterBottom>
     The easiest way to create flashcards from your text.
   </Typography>
-  <Button variant="contained" color="primary" sx={{mt: 2, mr: 2}} href="/generate">
+  <Button variant="contained" color="primary" sx={{mt: 2, mr: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} href="/generate">
     Get Started
   </Button>
-  <Button variant="outlined" color="primary" sx={{mt: 2}}>
+  <Button variant="outlined" color="primary" sx={{mt: 2, color: '#8365A6', borderColor:'#8365A6'}}>
     Learn More
   </Button>
+  </Box>
+  <Box>
+    <img src="/study2.jpeg" alt="hero" style={{width: '100%', height: 'auto'}} />
+  </Box>
+  </Box>
   <Box sx={{my: 6}}>
   <Typography variant="h4" component="h2" gutterBottom>Features</Typography>
   <Grid container spacing={4} justifyContent="center">
@@ -88,20 +117,20 @@ export default function Home() {
     <Grid item xs={12} md={4}>
     {/* Pricing plans */}
     <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
-      <Typography variant='h5' gutterBottom>Basic</Typography>
+      <Typography variant='h5' gutterBottom>Quizin Basic</Typography>
       <Typography variant='h6' gutterBottom>$5 per month</Typography>
       <Typography>{' '}  Access to basic flashcard features and limited storage</Typography> 
-      <Button variant="contained" color="primary" sx={{mt: 2}} onClick={handleSubmit}>
+      <Button variant="contained" color="primary" sx={{mt: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} onClick={handleSubmit}>
         Choose Basic
       </Button>
     </Box>
     </Grid>
     <Grid item xs={12} md={4}>
     <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
-      <Typography variant='h5' gutterBottom>Pro</Typography>
+      <Typography variant='h5' gutterBottom>Quizin Pro</Typography>
       <Typography variant='h6' gutterBottom>$10 per month</Typography>
       <Typography>{' '}  Unlimited flashcards and storage, with priority support</Typography> 
-      <Button variant="contained" color="primary" sx={{mt: 2}} onClick={handleSubmit}>
+      <Button variant="contained" color="primary" sx={{mt: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} onClick={handleSubmit}>
         Choose Pro
       </Button>
     </Box>
