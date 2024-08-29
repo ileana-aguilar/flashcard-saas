@@ -17,12 +17,13 @@ import {
   Card,
   CardContent,
   CardActionArea,
-
+  AppBar,
+    Toolbar,
 } from '@mui/material'
 import { useState } from 'react'
 import { writeBatch, doc, collection, getDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
-
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 export default function Generate() {
   const {isLoaded, isSignedIn, user} = useUser()
@@ -109,6 +110,22 @@ export default function Generate() {
 }
 return(
   <Container maxWidth="md">
+    <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
+        <Toolbar>
+          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} href="/">
+            Quizin
+          </Typography>
+          <SignedOut>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
+            <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
+          </SignedOut>
+          <SignedIn>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
+            <UserButton />
+          </SignedIn>
+        </Toolbar>
+      </AppBar>
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Generate Flashcards
@@ -217,7 +234,7 @@ return(
   </DialogContent>
   <DialogActions>
     <Button onClick={handleClose}>Cancel</Button>
-    <Button onClick={saveFlashcards} color="primary">
+    <Button onClick={saveFlashcards} sx={{ bgcolor:'#8365A6'}} >
       Save
     </Button>
   </DialogActions>
