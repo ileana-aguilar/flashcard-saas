@@ -97,7 +97,14 @@ export default function Home() {
             height: '93vh',
           }}
         >
-          <Box sx={{marginTop:'70px',width: '50%'}}>
+          <Box sx={{ marginTop: '70px', width: '50%', position: 'relative', left: '40px', textAlign:'left',
+            '@media (min-width: 2300px)': {
+              marginLeft: '10em',
+              marginRight: '105em',
+              marginTop: '10em',
+              
+            }
+           }}>
             <Typography variant="h2" component="h1" gutterBottom>
               Master your studies with AI-enhanced learning
             </Typography>
@@ -107,9 +114,7 @@ export default function Home() {
             <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/generate">
               Try it out
             </Button>
-            <Button variant="outlined" color="primary" sx={{ mt: 2, color: '#8365A6', borderColor: '#8365A6' }}>
-              Learn More
-            </Button>
+            
           </Box>
         </Box>
       
