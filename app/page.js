@@ -24,6 +24,11 @@ export default function Home() {
       headers: { origin: 'http://localhost:3000' },
     })
     const checkoutSessionJson = await checkoutSession.json()
+
+    if (checkoutSessionJson.statusCode === 500) {
+      console.error(checkoutSessionJson.message)
+      return
+    }
   
     const stripe = await getStripe()
     const {error} = await stripe.redirectToCheckout({
@@ -50,9 +55,9 @@ export default function Home() {
         },
         '.css-12waxkz' :{
           textAlign: 'center',
-          marginTop: '32px',
+          marginTop: '0px',
           marginBottom: '0px',
-          padding: '14px 0px',
+          padding: '0px 0px',
           backgroundColor: '#f6f7fb',
       },
       
@@ -65,7 +70,7 @@ export default function Home() {
       </Head>
       <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
-          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
+          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} href="/">
             Quizin
           </Typography>
           <SignedOut>
@@ -73,30 +78,46 @@ export default function Home() {
             <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
             <UserButton />
           </SignedIn>
         </Toolbar>
       </AppBar>
     <Box sx={{textAlign: 'center', my: 4}}>
-      <Box display={'flex'} flexDirection={'row'}>
-      <Box>
-  <Typography variant="h2" component="h1" gutterBottom>
-    Master your studies with AI-enhanced learning
-  </Typography>
-  <Typography variant="h5" component="h2" gutterBottom>
-    The easiest way to create flashcards from your text.
-  </Typography>
-  <Button variant="contained" color="primary" sx={{mt: 2, mr: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} href="/generate">
-    Get Started
-  </Button>
-  <Button variant="outlined" color="primary" sx={{mt: 2, color: '#8365A6', borderColor:'#8365A6'}}>
-    Learn More
-  </Button>
-  </Box>
-  <Box>
-    <img src="/study2.jpeg" alt="hero" style={{width: '100%', height: 'auto'}} />
-  </Box>
-  </Box>
+    <Box
+          display={'flex'}
+          flexDirection={'row'}
+          sx={{
+            backgroundImage: `url('/study2.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '100%',
+            padding: '40px 20px',
+            height: '93vh',
+          }}
+        >
+          <Box sx={{ marginTop: '70px', width: '50%', position: 'relative', left: '40px', textAlign:'left',
+            '@media (min-width: 2300px)': {
+              marginLeft: '10em',
+              marginRight: '105em',
+              marginTop: '10em',
+              
+            }
+           }}>
+            <Typography variant="h2" component="h1" gutterBottom>
+              Master your studies with AI-enhanced learning
+            </Typography>
+            <Typography variant="h5" component="h2" gutterBottom>
+              The easiest way to create flashcards from your text.
+            </Typography>
+            <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/generate">
+              Try it out
+            </Button>
+            
+          </Box>
+        </Box>
+      
   <Box sx={{my: 6}}>
   <Typography variant="h4" component="h2" gutterBottom>Features</Typography>
   <Grid container spacing={4} justifyContent="center">
