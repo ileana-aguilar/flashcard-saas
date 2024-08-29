@@ -5,12 +5,34 @@ import Link from 'next/link';
 
 export default function SignInPage() {
     return (  
-        <Container maxWidth="sm">
-            <AppBar position="static" sx={{ backgroundColor: '#3f51b5' }}>
+        <Container maxWidth="lg" 
+          sx={{
+          '@media (min-width: 600px)' :{
+                maxWidth: '100%',
+        }
+        ,
+        '@media (min-width: 600px)': {
+          
+              paddingLeft: '24px',
+              paddingRight: '24px',
+          
+      },
+      '.css-yca69d-MuiContainer-root': {
+        width: '100%',
+        marginLeft: 'auto',
+        boxSizing: 'border-box',
+        marginRight:' auto',
+        display: 'block',
+        paddingLeft: '0px',
+        paddingRight: '0px',
+        
+    }
+          }}>
+            <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }}>
                 <Toolbar>
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        Flashcard SaaS
-                    </Typography>
+                  <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
+                      Quizin
+                  </Typography>
                     <Button color="inherit">
                         <Link href="/sign-in" passHref>
                             Login
