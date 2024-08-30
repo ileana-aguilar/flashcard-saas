@@ -109,7 +109,35 @@ export default function Generate() {
       
 }
 return(
-  <Container maxWidth="md">
+  <Container
+      maxWidth="lg"
+      sx={{
+        backgroundColor: '#f6f7fb',
+        height: '100%',
+        justifyContent: 'center',
+        display: 'ruby-text',
+        '@media (min-width: 1200px)': {
+          maxWidth: '100%',
+          maxHeight: '100%', 
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (min-width: 600px)': {
+          paddingLeft: '0px',
+          paddingRight: '0px',
+          backgroundColor: '#f6f7fb',
+        },
+        '.css-12waxkz' :{
+          textAlign: 'center',
+          marginTop: '0px',
+          marginBottom: '0px',
+          padding: '0px 0px',
+          backgroundColor: '#f6f7fb',
+      },
+      
+      
+        
+      }}
+    >
     <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
           <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} href="/">
@@ -126,7 +154,8 @@ return(
           </SignedIn>
         </Toolbar>
       </AppBar>
-      <Box sx={{ my: 4 }}>
+      
+      <Box sx={{ my: 4, maxWidth: '90em', justifyContent:'center' }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Generate Flashcards
         </Typography>
@@ -150,6 +179,7 @@ return(
         </Button>
       </Box>
       
+      <Box>
       {/* We'll add flashcard display here */}
       {flashcards.length > 0 && (
   <Box sx={{ mt: 4 }}>
@@ -209,12 +239,13 @@ return(
   </Box>
 )}
 {flashcards.length > 0 && (
-  <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-    <Button variant="contained" color="primary" onClick={handleOpen}>
+  <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', marginBottom:'7em' }}>
+    <Button variant="contained" sx={{ bgcolor:'#8365A6', boxShadow: 'none' }} onClick={handleOpen}>
       Save Flashcards
     </Button>
   </Box>
 )}
+</Box>
 <Dialog open={open} onClose={handleClose}>
   <DialogTitle>Save Flashcard Set</DialogTitle>
   <DialogContent>

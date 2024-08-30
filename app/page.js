@@ -15,35 +15,47 @@ import {
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 import Head from 'next/head'
+import getStripe from '@/utils/get-stripe'
+
 
 
 export default function Home() {
-  const handleSubmit = async () => {
-    const checkoutSession = await fetch('/api/checkout_sessions', {
-      method: 'POST',
-      headers: { origin: 'http://localhost:3000' },
-    })
-    const checkoutSessionJson = await checkoutSession.json()
+  const handleSubmit = async (subscriptionType) => {
+    try {
+      const response = await fetch('/api/checkout_sessions', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          origin: 'http://localhost:3000' 
+        },
+        body: JSON.stringify({ subscriptionType }), // Pass the subscription type (basic or pro)
+      })
+      const checkoutSessionJson = await response.json()
 
-    if (checkoutSessionJson.statusCode === 500) {
-      console.error(checkoutSessionJson.message)
-      return
-    }
-  
-    const stripe = await getStripe()
-    const {error} = await stripe.redirectToCheckout({
-      sessionId: checkoutSessionJson.id,
-    })
-  
-    if (error) {
-      console.warn(error.message)
+      if (response.status === 500) {
+        console.error(checkoutSessionJson.message)
+        return
+      }
+
+      const stripe = await getStripe()
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: checkoutSessionJson.id,
+      })
+
+      if (error) {
+        console.warn(error.message)
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error)
     }
   }
+
   return (
     <Container
       maxWidth="lg"
       sx={{
         backgroundColor: '#f6f7fb',
+        height: '100%',
         '@media (min-width: 1200px)': {
           maxWidth: '100%', 
           backgroundColor: '#f6f7fb',
@@ -111,29 +123,40 @@ export default function Home() {
             <Typography variant="h5" component="h2" gutterBottom>
               The easiest way to create flashcards from your text.
             </Typography>
-            <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/generate">
-              Try it out
-            </Button>
+            <SignedIn>
+              <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/generate">
+                Try it out
+              </Button>
+            </SignedIn>
+            <SignedOut>
+              <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/sign-up">
+                Try it out
+              </Button>
+            </SignedOut>
             
           </Box>
         </Box>
       
-  <Box sx={{my: 6}}>
-  <Typography variant="h4" component="h2" gutterBottom>Features</Typography>
+  <Box sx={{my: 6, margin:'3em' }}>
+  <Typography variant="h4" component="h2" sx={{ marginBottom:'1em' }} gutterBottom>Features</Typography>
   <Grid container spacing={4} justifyContent="center">
     <Grid item xs={12} md={4}>
     {/* Feature items */}
       <Typography variant='h6'>Easy Text Input</Typography>
-      <Typography>{' '}  Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography> 
+      <Typography>{' '}  Simply input your text and let our software do the rest. Creating flashcards has never been easier.</Typography> 
     </Grid>
     <Grid item xs={12} md={4}>
       <Typography variant='h6'>Smart Flashcards</Typography>
       <Typography>{' '}  Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography> 
     </Grid>
+    <Grid item xs={12} md={4}>
+      <Typography variant='h6'>Accessible Anywhere</Typography>
+      <Typography>{' '} Access your flashcards from any device, at any time. Study on the go with ease</Typography> 
+    </Grid>
   </Grid>
 </Box>
-<Box sx={{my: 6, textAlign: 'center'}}>
-  <Typography variant="h4" component="h2" gutterBottom>Pricing</Typography>
+<Box sx={{my: 6, textAlign: 'center', padding:'3em', margin:'0px'}}>
+  <Typography variant="h4" component="h2" sx={{ marginBottom:'1em' }} gutterBottom>Pricing</Typography>
   <Grid container spacing={4} justifyContent="center">
     <Grid item xs={12} md={4}>
     {/* Pricing plans */}
@@ -141,9 +164,14 @@ export default function Home() {
       <Typography variant='h5' gutterBottom>Quizin Basic</Typography>
       <Typography variant='h6' gutterBottom>$5 per month</Typography>
       <Typography>{' '}  Access to basic flashcard features and limited storage</Typography> 
-      <Button variant="contained" color="primary" sx={{mt: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} onClick={handleSubmit}>
-        Choose Basic
-      </Button>
+      <Button 
+              variant="contained" 
+              color="primary" 
+              sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} 
+              onClick={() => handleSubmit('basic')}
+            >
+              Try Basic
+            </Button>
     </Box>
     </Grid>
     <Grid item xs={12} md={4}>
@@ -151,9 +179,14 @@ export default function Home() {
       <Typography variant='h5' gutterBottom>Quizin Pro</Typography>
       <Typography variant='h6' gutterBottom>$10 per month</Typography>
       <Typography>{' '}  Unlimited flashcards and storage, with priority support</Typography> 
-      <Button variant="contained" color="primary" sx={{mt: 2, borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none'}} onClick={handleSubmit}>
-        Choose Pro
-      </Button>
+      <Button 
+              variant="contained" 
+              color="primary" 
+              sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} 
+              onClick={() => handleSubmit('pro')}
+            >
+              Try Pro
+            </Button>
     </Box>
     </Grid>
   </Grid>
