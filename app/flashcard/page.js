@@ -71,7 +71,32 @@ export default function Flashcard() {
     }
 
     return (
-        <Container maxWidth='100vw'>
+        <Container maxWidth='100vw'
+            
+      sx={{
+        backgroundColor: '#f6f7fb',
+        height: '100%',
+        
+        '@media (min-width: 1200px)': {
+          maxWidth: '100%', 
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (min-width: 600px)': {
+          paddingLeft: '0px',
+          paddingRight: '0px',
+          backgroundColor: '#f6f7fb',
+        },
+        '.css-12waxkz' :{
+          textAlign: 'center',
+          marginTop: '0px',
+          marginBottom: '0px',
+          padding: '0px 0px',
+          backgroundColor: '#f6f7fb',
+      },
+      
+        
+      }}
+    >
             <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
           <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} href="/">
@@ -88,6 +113,7 @@ export default function Flashcard() {
           </SignedIn>
         </Toolbar>
       </AppBar>
+      <Box sx={{padding: '2em'}}>
             <h1>{search} Flashcards</h1>
 
             <Grid container spacing={3} sx={{mt: 4}}>
@@ -145,6 +171,7 @@ export default function Flashcard() {
 
 
             </Grid>
+            </Box>
             
         </Container>
     )
