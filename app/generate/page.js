@@ -148,7 +148,7 @@ return(
     >
     <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
-          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} href="/">
+          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} >
             Quizin
           </Typography>
           <SignedOut>
