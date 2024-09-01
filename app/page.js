@@ -52,30 +52,29 @@ export default function Home() {
 
   return (
     <Container
-      maxWidth="lg"
-      sx={{
+    maxWidth="100%"
+    sx={{
+      backgroundColor: '#f6f7fb',
+      height: '100%',
+      
+      '@media (min-width: 1200px)': {
+        maxWidth: '100%', 
         backgroundColor: '#f6f7fb',
-        height: '100%',
-        '@media (min-width: 1200px)': {
-          maxWidth: '100%', 
-          backgroundColor: '#f6f7fb',
-        },
-        '@media (min-width: 600px)': {
+      },
+      '@media (min-width: 600px)': {
+        paddingLeft: '0px',
+        paddingRight: '0px',
+        backgroundColor: '#f6f7fb',
+      },
+      '@media (max-width: 600px)': {
           paddingLeft: '0px',
           paddingRight: '0px',
           backgroundColor: '#f6f7fb',
-        },
-        '.css-12waxkz' :{
-          textAlign: 'center',
-          marginTop: '0px',
-          marginBottom: '0px',
-          padding: '0px 0px',
-          backgroundColor: '#f6f7fb',
+          maxWidth: '100%',
       },
       
-        
-      }}
-    >
+    }}
+  >
       <Head >
         <title>Quizin</title>
         <meta name="description" content="The easiest way to create flashcards from your text." />
@@ -96,7 +95,7 @@ export default function Home() {
           </SignedIn>
         </Toolbar>
       </AppBar>
-    <Box sx={{textAlign: 'center', my: 4}}>
+    <Box sx={{textAlign: 'center', my: 4, margin:'0px 0px'}}>
     <Box
           display={'flex'}
           flexDirection={'row'}
@@ -105,8 +104,9 @@ export default function Home() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             width: '100%',
-            padding: '40px 20px',
+            padding: '40px 0px',
             height: '93vh',
+            
           }}
         >
           <Box sx={{ marginTop: '70px', width: '50%', position: 'relative', left: '40px', textAlign:'left',

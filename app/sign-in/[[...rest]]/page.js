@@ -33,7 +33,10 @@ export default function SignInPage() {
                   <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
                       Quizin
                   </Typography>
-                    <Button color="inherit">
+                  <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
+            <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
+                   { /*<Button color="inherit">
+                      
                         <Link href="/sign-in" passHref>
                             Login
                         </Link>
@@ -42,7 +45,9 @@ export default function SignInPage() {
                         <Link href="/sign-up" passHref>
                             Sign Up
                         </Link>
+                        
                     </Button>
+                    */}
                 </Toolbar>
             </AppBar>
 

@@ -113,9 +113,8 @@ return(
       maxWidth="lg"
       sx={{
         backgroundColor: '#f6f7fb',
-        height: '100%',
-        justifyContent: 'center',
-        display: 'ruby-text',
+        height: flashcards.length > 0 ? '100%' : '100vh',
+        
         '@media (min-width: 1200px)': {
           maxWidth: '100%',
           maxHeight: '100%', 
@@ -124,6 +123,15 @@ return(
         '@media (min-width: 600px)': {
           paddingLeft: '0px',
           paddingRight: '0px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (max-width: 600px)': {
+          paddingLeft: '0px',
+          paddingRight: '0px',
+          maxWidth: '100%',
+          maxHeight: '100%',
           backgroundColor: '#f6f7fb',
         },
         '.css-12waxkz' :{
@@ -154,8 +162,10 @@ return(
           </SignedIn>
         </Toolbar>
       </AppBar>
-      
-      <Box sx={{ my: 4, maxWidth: '90em', justifyContent:'center' }}>
+      <Box sx={{ 
+        display: 'flex',
+        flexDirection: 'column',}}>
+      <Box sx={{ my: 4, maxWidth: '90em', justifyContent:'center', margin:'4em auto ' }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Generate Flashcards
         </Typography>
@@ -182,7 +192,7 @@ return(
       <Box>
       {/* We'll add flashcard display here */}
       {flashcards.length > 0 && (
-  <Box sx={{ mt: 4 }}>
+  <Box sx={{ mt: 4 , margin: "1em 3em"}}>
     <Typography variant="h5" component="h2" gutterBottom>
       Generated Flashcards
     </Typography>
@@ -246,6 +256,7 @@ return(
   </Box>
 )}
 </Box>
+</Box>
 <Dialog open={open} onClose={handleClose}>
   <DialogTitle>Save Flashcard Set</DialogTitle>
   <DialogContent>
@@ -255,7 +266,7 @@ return(
     <TextField
       autoFocus
       margin="dense"
-      label="Collection Name"
+      label="Set Name"
       type="text"
       fullWidth
       value={name}
@@ -264,8 +275,8 @@ return(
     />
   </DialogContent>
   <DialogActions>
-    <Button onClick={handleClose}>Cancel</Button>
-    <Button onClick={saveFlashcards} sx={{ bgcolor:'#8365A6'}} >
+    <Button onClick={handleClose} sx={{ color:'#000000'}} >Cancel</Button>
+    <Button onClick={saveFlashcards} sx={{ bgcolor:'#8365A6', color:'#FFF'}} >
       Save
     </Button>
   </DialogActions>
