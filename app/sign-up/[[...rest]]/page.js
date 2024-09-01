@@ -3,18 +3,16 @@ import { Container, Box, Typography, AppBar, Toolbar, Button } from '@mui/materi
 import { SignUp } from '@clerk/nextjs'
 import Link from 'next/link'
 
+
 export default function SignUpPage() {
     return (
-        <Container maxWidth="lg" 
+        <Container maxWidth="100vh" 
           sx={{
-          '@media (min-width: 600px)' :{
-                maxWidth: '100%',
-        }
-        ,
         '@media (min-width: 600px)': {
-          
-              paddingLeft: '24px',
-              paddingRight: '24px',
+              maxWidth: '100%',
+              paddingLeft: '0px',
+              paddingRight: '0px',
+              margin: '0px',
           
       },
       '.css-yca69d-MuiContainer-root': {
@@ -29,12 +27,16 @@ export default function SignUpPage() {
     }
           }}>
             <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }}>
-                <Toolbar>
-                  <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
-                      Quizin
-                  </Typography>
-                  <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
-            <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
+                <Toolbar sx={{display:'flex', justifyContent: 'space-between'}} >
+                <Link href="/" passHref style={{textDecoration: 'none'}}>
+                    <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px', textDecoration: 'none'}}>
+                        Quizin
+                    </Typography>
+                </Link>
+                <Box>
+                    <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
+                    <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
+                </Box>
                    { /*<Button color="inherit">
                       
                         <Link href="/sign-in" passHref>
