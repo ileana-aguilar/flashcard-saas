@@ -17,22 +17,58 @@ import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs'
 import Head from 'next/head'
 import getStripe from '@/utils/get-stripe'
 import { useRouter } from 'next/navigation'
+import { db } from '@/firebase'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 
     
 
 export default function Home() {
   const router = useRouter();
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser();
+  const [subscription, setSubscription] = useState(null);
+
   const handleSubmit = async (subscriptionType) => {
+    if (!isLoaded) {
+      console.error('User information is not loaded yet.');
+      return;
+    }
+
+    if (!isSignedIn) {
+      sessionStorage.setItem('pendingSubscriptionType', subscriptionType);
+      router.push('/sign-up');
+      return;
+    }
+
     if (subscriptionType === 'free') {
-      if (isSignedIn) {
+      try {
+        const userDocRef = doc(db, 'users', user.id);
+        await setDoc(userDocRef, { subscription: subscriptionType }, { merge: true });
         router.push('/generate');
-      } else {
-        router.push('/sign-in');
+      } catch (error) {
+        console.error('Error saving subscription type:', error);
       }
       return;
     }
+/*
+    if (subscriptionType === 'free') {
+      try {
+        const userDocRef = doc(db, 'users', user.id);
+        const docSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const { subscription } = userDocSnap.data();
+          await setDoc(userDocRef, { subscription: subscriptionType});
+        } else {
+          await setDoc(userDocRef, { subscription: subscriptionType });
+        }
+        console.log('Saved subscription type:', subscriptionType);
+        router.push('/generate');
+      } catch (error) {
+        console.error('Error saving subscription type:', error);
+      }
+      return;
+    }*/
+
     try {
       const response = await fetch('/api/checkout_sessions', {
         method: 'POST',
@@ -101,7 +137,7 @@ export default function Home() {
             <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
-            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate</Button>
             <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
             <UserButton />
           </SignedIn>
@@ -149,7 +185,7 @@ export default function Home() {
               </Button>
             </SignedIn>
             <SignedOut>
-              <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} href="/sign-up">
+              <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} onClick={() => handleSubmit('free')}>
                 Try it out
               </Button>
             </SignedOut>

@@ -21,10 +21,12 @@ import {
     Toolbar,
 } from '@mui/material'
 import { useState, useEffect } from 'react'
-import { writeBatch, doc, collection, getDoc } from 'firebase/firestore'
+import { writeBatch, doc, collection, getDoc, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Head from 'next/head'
+
+
 
 
 
@@ -35,8 +37,9 @@ export default function Generate() {
   const [text, setText] = useState('')
   const [name, setName] = useState('')
   const [open, setOpen] = useState(false)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const router = useRouter()
-
+  
   
 
   useEffect(() => {
@@ -45,7 +48,49 @@ export default function Generate() {
     }
   }, [isLoaded, isSignedIn, router]);
 
+  useEffect(() => {
+    if (isSignedIn && user) {
+      const pendingSubscriptionType = sessionStorage.getItem('pendingSubscriptionType');
+      console.log('pendingSubscriptionType:', pendingSubscriptionType);
+      if (pendingSubscriptionType === 'free') {
+        const saveSubscriptionType = async () => {
+          try {
+            const userDocRef = doc(db, 'users', user.id);
+            await setDoc(userDocRef, { subscription: 'free' }, { merge: true });
+            sessionStorage.removeItem('pendingSubscriptionType');
+          } catch (error) {
+            console.error('Error saving subscription type:', error);
+          }
+        };
+        saveSubscriptionType();
+      }
+    }
+  }, [isSignedIn, user, router]);
+
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (isSignedIn && user) {
+        const userDocRef = doc(db, 'users', user.id);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          if (userData.subscription === 'free' && userData.hasGeneratedFlashcards) {
+            setIsButtonDisabled(true);
+          }
+        }
+      }
+    };
+
+    checkSubscription();
+  }, [isSignedIn, user]);
+
   const handleSubmit = async () => {
+    if (isButtonDisabled) {
+      alert('You have reached the limit of free flashcard sets. Please upgrade to premium to generate more flashcards.');
+      return;
+    }
+
     if (!text.trim()) {
       alert('Please enter some text to generate flashcards.')
       return
@@ -62,7 +107,13 @@ export default function Generate() {
       }
   
       const data = await response.json()
-      setFlashcards(data)
+      setFlashcards(data);
+
+      if (user) {
+        const userDocRef = doc(db, 'users', user.id);
+        await setDoc(userDocRef, { hasGeneratedFlashcards: true }, { merge: true });
+        setIsButtonDisabled(true);
+      }
     } catch (error) {
       console.error('Error generating flashcards:', error)
       alert('An error occurred while generating flashcards. Please try again.')
@@ -168,7 +219,7 @@ return(
             <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
-            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate </Button>
             <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
             <UserButton />
           </SignedIn>
