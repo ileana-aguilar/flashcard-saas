@@ -3,6 +3,14 @@ import { Container, Box, Typography, AppBar, Toolbar, Button } from '@mui/materi
 import { SignIn } from '@clerk/nextjs';
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Sign In',
+  description: 'Sign in for Quizin',
+  icons: {
+    icon: '/vercel.svg',
+  },
+};
+
 export default function SignInPage() {
     return (  
       <Container maxWidth="100vh" 
@@ -57,11 +65,9 @@ export default function SignInPage() {
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ textAlign: 'center', my: 4 }}
+                sx={{ textAlign: 'center', my: 4, mt:10 }}
             >
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Sign In
-                </Typography>
+                
                 <SignIn afterSignInUrl="/generate" />
             </Box>
         </Container>

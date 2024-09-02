@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const systemPrompt =  `You are a flashcard creator Your task is to generate concise and effective flashcards based on the given topic or content. Follow these guidelines:
+const systemPrompt =  `You are a flashcard creator Your task is to generate concise and effective 
+flashcards based on the given topic or content. Follow these guidelines:
 1. Create clear and concise questions for the front of the flashcard.
 2. Provide accurate and informative answers for the back of the flashcard.
 3. Ensure that each flashcard focuses on a single concept or piece of information.

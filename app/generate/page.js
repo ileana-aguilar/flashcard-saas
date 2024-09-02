@@ -24,6 +24,9 @@ import { useState, useEffect } from 'react'
 import { writeBatch, doc, collection, getDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Head from 'next/head'
+
+
 
 export default function Generate() {
   const {isLoaded, isSignedIn, user} = useUser()
@@ -33,6 +36,8 @@ export default function Generate() {
   const [name, setName] = useState('')
   const [open, setOpen] = useState(false)
   const router = useRouter()
+
+  
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
@@ -152,6 +157,7 @@ return(
         
       }}
     >
+      
     <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
         <Toolbar>
           <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}} >

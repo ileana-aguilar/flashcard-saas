@@ -7,6 +7,7 @@ import { Box, CircularProgress, Container, Typography, AppBar, Toolbar, Button }
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Link from 'next/link';
 
+
 const ResultPage = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -40,6 +41,8 @@ const ResultPage = () => {
 
            
     }, [sessionId])
+
+    
 
     if (loading){
         return (
