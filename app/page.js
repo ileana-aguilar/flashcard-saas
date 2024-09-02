@@ -143,15 +143,17 @@ export default function Home() {
     <Grid item xs={12} md={4}>
     {/* Feature items */}
       <Typography variant='h6'>Easy Text Input</Typography>
-      <Typography>{' '}  Simply input your text and let our software do the rest. Creating flashcards has never been easier.</Typography> 
+      <Typography>Simply input your text and let our software do the rest. Creating flashcards has never been easier.</Typography>
+
+
     </Grid>
     <Grid item xs={12} md={4}>
       <Typography variant='h6'>Smart Flashcards</Typography>
-      <Typography>{' '}  Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography> 
+      <Typography>  Our AI intelligently breaks down your text into concise flashcards, perfect for studying.</Typography> 
     </Grid>
     <Grid item xs={12} md={4}>
       <Typography variant='h6'>Accessible Anywhere</Typography>
-      <Typography>{' '} Access your flashcards from any device, at any time. Study on the go with ease</Typography> 
+      <Typography> Access your flashcards from any device, at any time. Study on the go with ease</Typography> 
     </Grid>
   </Grid>
 </Box>
@@ -163,7 +165,7 @@ export default function Home() {
     <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
       <Typography variant='h5' gutterBottom>Quizin Basic</Typography>
       <Typography variant='h6' gutterBottom>$5 per month</Typography>
-      <Typography>{' '}  Access to basic flashcard features and limited storage</Typography> 
+      <Typography>  Access to basic flashcard features and limited storage</Typography> 
       <Button 
               variant="contained" 
               color="primary" 
@@ -178,7 +180,7 @@ export default function Home() {
     <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
       <Typography variant='h5' gutterBottom>Quizin Pro</Typography>
       <Typography variant='h6' gutterBottom>$10 per month</Typography>
-      <Typography>{' '}  Unlimited flashcards and storage, with priority support</Typography> 
+      <Typography>  Unlimited flashcards and storage, with priority support</Typography> 
       <Button 
               variant="contained" 
               color="primary" 
