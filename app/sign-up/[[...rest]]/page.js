@@ -63,7 +63,7 @@ export default function SignUpPage() {
                 <Typography variant="h4" component="h1" gutterBottom>
                     Sign Up
                 </Typography>
-                <SignUp routing="hash" />
+                <SignUp routing="hash" afterSignUpUrl="/generate" />
             </Box>
         </Container>
     );

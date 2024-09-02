@@ -12,15 +12,26 @@ import {
   Toolbar,
 } from '@mui/material'
 
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs'
 
 import Head from 'next/head'
 import getStripe from '@/utils/get-stripe'
+import { useRouter } from 'next/navigation'
 
 
 
 export default function Home() {
+  const router = useRouter();
+  const { isSignedIn } = useUser();
   const handleSubmit = async (subscriptionType) => {
+    if (subscriptionType === 'free') {
+      if (isSignedIn) {
+        router.push('/generate');
+      } else {
+        router.push('/sign-in');
+      }
+      return;
+    }
     try {
       const response = await fetch('/api/checkout_sessions', {
         method: 'POST',
@@ -28,7 +39,7 @@ export default function Home() {
           'Content-Type': 'application/json',
           origin: 'http://localhost:3000' 
         },
-        body: JSON.stringify({ subscriptionType }), // Pass the subscription type (basic or pro)
+        body: JSON.stringify({ subscriptionType }), 
       })
       const checkoutSessionJson = await response.json()
 
@@ -160,8 +171,23 @@ export default function Home() {
 <Box sx={{my: 6, textAlign: 'center', padding:'3em', margin:'0px'}}>
   <Typography variant="h4" component="h2" sx={{ marginBottom:'1em' }} gutterBottom>Pricing</Typography>
   <Grid container spacing={4} justifyContent="center">
-    <Grid item xs={12} md={4}>
     {/* Pricing plans */}
+  <Grid item xs={12} md={4}>
+    <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
+      <Typography variant='h5' gutterBottom>Quizin Free</Typography>
+      <Typography variant='h6' gutterBottom>$0 per month</Typography>
+      <Typography> Access to one set of generated flashcard set</Typography> 
+      <Button 
+              variant="contained" 
+              color="primary" 
+              sx={{ mt: 2, mr: 2, borderRadius: '10px', bgcolor: '#8365A6', boxShadow: 'none' }} 
+              onClick={() => handleSubmit('free')}
+            >
+              Try Free
+            </Button>
+    </Box>
+    </Grid>
+    <Grid item xs={12} md={4}>
     <Box sx={{p: 3, border: '1px solid', borderColor:'grey.300', borderRadius: 2,}}>
       <Typography variant='h5' gutterBottom>Quizin Basic</Typography>
       <Typography variant='h6' gutterBottom>$5 per month</Typography>
