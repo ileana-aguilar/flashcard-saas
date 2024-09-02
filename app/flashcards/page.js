@@ -189,7 +189,7 @@ export default function Flashcards() {
             <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
-            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate </Button>
             <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
             <UserButton />
           </SignedIn>
