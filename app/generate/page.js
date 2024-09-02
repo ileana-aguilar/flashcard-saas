@@ -20,7 +20,7 @@ import {
   AppBar,
     Toolbar,
 } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { writeBatch, doc, collection, getDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
@@ -33,6 +33,12 @@ export default function Generate() {
   const [name, setName] = useState('')
   const [open, setOpen] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in');
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   const handleSubmit = async () => {
     if (!text.trim()) {
@@ -172,7 +178,7 @@ return(
         <TextField
           value={text}
           onChange={(e) => setText(e.target.value)}
-          label="Enter text"
+          label="Enter subject or topic"
           fullWidth
           multiline
           rows={4}

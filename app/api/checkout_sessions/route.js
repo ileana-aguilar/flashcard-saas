@@ -13,11 +13,14 @@ export async function POST(req) {
     const { subscriptionType } = await req.json();
 
     let price, productName;
-
-    if (subscriptionType === 'basic') {
+    if (subscriptionType === 'free') {
+      price = formatAmountForStripe(0, 'usd'); // $0.00
+      productName = 'Free subscription';
+    }else if (subscriptionType === 'basic') {
       price = formatAmountForStripe(5, 'usd'); // $5.00
       productName = 'Basic subscription';
-    } else {
+    } 
+    else if(subscriptionType === 'pro') {
       price = formatAmountForStripe(10, 'usd'); // $10.00
       productName = 'Pro subscription';
     }
