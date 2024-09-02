@@ -123,16 +123,24 @@ export default function Home() {
         >
           <Box sx={{ marginTop: '70px', width: '50%', position: 'relative', left: '40px', textAlign:'left',
             '@media (min-width: 2300px)': {
-              marginLeft: '10em',
-              marginRight: '105em',
-              marginTop: '10em',
+              marginLeft: '2em',
+              marginRight: '82em',
+              marginTop: '5em',
               
             }
            }}>
-            <Typography variant="h2" component="h1" gutterBottom>
+            <Typography variant="h2" component="h1" gutterBottom
+            sx={{'@media (max-width: 777px)': {
+              fontSize: '3em'
+              
+            }}}>
               Master your studies with AI-enhanced learning
             </Typography>
-            <Typography variant="h5" component="h2" gutterBottom>
+            <Typography variant="h5" component="h2" gutterBottom
+            sx={{'@media (max-width: 777px)': {
+              fontSize: '1.2em'
+              
+            }}}>
               The easiest way to create flashcards from your text.
             </Typography>
             <SignedIn>

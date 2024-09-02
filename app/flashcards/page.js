@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Box, Container, Grid, Card, CardActionArea, CardContent, Typography,  AppBar,
-    Toolbar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField  } from '@mui/material';
+    Toolbar, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, CircularProgress  } from '@mui/material';
 import { doc, collection, getDoc, getDocs, setDoc,  updateDoc, deleteDoc } from 'firebase/firestore';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
@@ -15,6 +15,7 @@ import Head from 'next/head';
 export default function Flashcards() {
     const { isLoaded, isSignedIn, user } = useUser();
     const [flashcards, setFlashcards] = useState([]);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [newName, setNewName] = useState('');
@@ -140,6 +141,8 @@ export default function Flashcards() {
                 await setDoc(docRef, { flashcardSets: [] });
                 console.log("No flashcards found, created empty collection");
             }
+            setLoading(false); 
+
         }
         getFlashcards()
     }, [user]);
@@ -148,6 +151,56 @@ export default function Flashcards() {
 
     if (!isLoaded || !isSignedIn) {
         return <></>;
+    }
+
+    if (loading) {
+        return (
+            <Container
+      maxWidth="100%"
+      sx={{
+        backgroundColor: '#f6f7fb',
+        height: '100vh',
+        
+        '@media (min-width: 1200px)': {
+          maxWidth: '100%', 
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (min-width: 600px)': {
+          paddingLeft: '0px',
+          paddingRight: '0px',
+          backgroundColor: '#f6f7fb',
+        },
+        '@media (max-width: 600px)': {
+            paddingLeft: '0px',
+            paddingRight: '0px',
+            backgroundColor: '#f6f7fb',
+            maxWidth: '100%',
+        },
+        
+      }}
+    >
+            <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow:'none' }} >
+        <Toolbar>
+          <Typography variant="h6" style={{flexGrow: 1, color: '#8365A6', fontSize:'30px'}}>
+            Quizin
+          </Typography>
+          <SignedOut>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/sign-in">Login</Button>
+            <Button variant="contained" sx={{ borderRadius: '10px', bgcolor:'#8365A6', boxShadow:'none' }} href="/sign-up">Sign Up</Button>
+          </SignedOut>
+          <SignedIn>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/generate">Generate Flashcards</Button>
+            <Button variant="text" sx={{ color:'#8365A6' }}  href="/flashcards"> Library</Button>
+            <UserButton />
+          </SignedIn>
+        </Toolbar>
+      </AppBar>
+            
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </Box>
+            </Container>
+        );
     }
 
     const handleCardClick = (id) => {
