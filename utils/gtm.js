@@ -1,4 +1,4 @@
-export const GTM_ID = 'G-2HK40C4CYN';
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const pageview = (url) => {
   window.dataLayer.push({

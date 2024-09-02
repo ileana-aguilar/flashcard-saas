@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Script from "next/script";
+import { GTM_ID } from '../utils/gtm';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({ children }) {
       <head>
           {/* GTM Script */}
           <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-2HK40C4CYN"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
             strategy="afterInteractive"
           />
           <Script id="gtag-init" strategy="afterInteractive">
@@ -31,7 +32,7 @@ export default function RootLayout({ children }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-2HK40C4CYN');
+              gtag('config', '${GTM_ID}');
             `}
           </Script>
         </head>
