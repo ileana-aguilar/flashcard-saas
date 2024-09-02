@@ -68,7 +68,7 @@ export default function SignInPage() {
                 sx={{ textAlign: 'center', my: 4, mt:10 }}
             >
                 
-                <SignIn afterSignInUrl="/generate" />
+                <SignIn afterSignInUrl="/flashcards" />
             </Box>
         </Container>
     );

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Box, Typography, AppBar, Toolbar, Button } from '@mui/material'
-import { SignUp } from '@clerk/nextjs'
+import { SignUp} from '@clerk/nextjs'
 import Link from 'next/link'
 
 export const metadata = {
@@ -66,8 +66,7 @@ export default function SignUpPage() {
                 alignItems="center"
                 sx={{ textAlign: 'center', my: 4, mt:10 }}
             >
-                
-                <SignUp routing="hash" afterSignUpUrl="/generate" />
+                <SignUp routing="hash" afterSignUpUrl="/flashcards" />
             </Box>
         </Container>
     );

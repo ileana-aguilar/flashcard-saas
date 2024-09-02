@@ -28,6 +28,7 @@
   - Clerk API for user authentication
   - Stripe API for subscription payment processing
 - **Hosting:** Vercel
+- **Analytics:** Google Analytics
 
 ## Getting Started
 
